@@ -15,6 +15,7 @@ spec:
     metadata:
       labels:
         app: {{ .Values.backend.serviceName }}
+        date: {{ now | unixEpoch | quote }}
     spec:
       containers:
         - args:
@@ -28,7 +29,7 @@ spec:
               value: development
             - name: PORT
               value: "{{ .Values.backend.containerPort }}"
-          image: "{{ .Values.backend.image.repository }}:{{ .Values.backend.image.tag }}"
+          image: "{{ include "anythink-tenant.backendRepository" .}}:{{ .Values.backend.image.tag }}"
           imagePullPolicy: {{ .Values.backend.image.pullPolicy }}
           name: {{ .Values.backend.serviceName }}
           ports:
@@ -37,17 +38,17 @@ spec:
               protocol: TCP
           startupProbe:
             httpGet:
-              path: /
+              path: /health
               port: http
             failureThreshold: 30
             periodSeconds: 10
           livenessProbe:
             httpGet:
-              path: /
+              path: /health
               port: http
           readinessProbe:
             httpGet:
-              path: /
+              path: /health
               port: http
           resources:
             {{- toYaml .Values.backend.resources | nindent 12 }}
@@ -55,7 +56,7 @@ spec:
         - command:
             - sh
             - -c
-            - "exec rails db:migrate"
+            - "rails db:migrate && ./seeds.sh"
           env:
             - name: DATABASE_URL
               value: "{{ .Values.database.connectionProtocol}}{{ .Values.database.env.userName}}:@{{ .Values.database.serviceName }}:{{ .Values.database.servicePort }}"
@@ -63,7 +64,7 @@ spec:
               value: development
             - name: PORT
               value: "{{ .Values.backend.containerPort }}"
-          image: "{{ .Values.backend.image.repository }}:{{ .Values.backend.image.tag }}"
+          image: "{{ include "anythink-tenant.backendRepository" .}}:{{ .Values.backend.image.tag }}"
           imagePullPolicy: {{ .Values.backend.image.pullPolicy }}
           name: db-migrations
       restartPolicy: Always
