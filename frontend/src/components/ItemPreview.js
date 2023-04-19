@@ -37,8 +37,7 @@ const ItemPreview = (props) => {
     >
       <img
         alt="item"
-        src={item.image}
-        onError={(e) => (e.currentTarget.src = "/workspaces/Anythink-Market-clekt/frontend/public/placeholder.png")}
+        src={item.image || "/workspaces/Anythink-Market-clekt/frontend/public/placeholder.png"}
         className="card-img-top item-img"
         style={{ borderRadius: "20px" }}
       />
