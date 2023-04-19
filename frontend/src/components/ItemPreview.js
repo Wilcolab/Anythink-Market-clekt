@@ -38,6 +38,10 @@ const ItemPreview = (props) => {
       <img
         alt="item"
         src={item.image}
+        onError={({ currentTarget }) => {
+          currentTarget.onerror = null; // prevents looping
+          currentTarget.src="/workspaces/Anythink-Market-clekt/frontend/src/components/ItemPreview.js"
+        }}
         className="card-img-top item-img"
         style={{ borderRadius: "20px" }}
       />
