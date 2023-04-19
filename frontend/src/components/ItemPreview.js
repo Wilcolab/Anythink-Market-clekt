@@ -41,7 +41,7 @@ const ItemPreview = (props) => {
         onError={({ currentTarget }) => {
           currentTarget.onerror = null; // prevents looping
           currentTarget.src="/workspaces/Anythink-Market-clekt/frontend/src/components/ItemPreview.js"
-        }}
+        }} //added for comment
         className="card-img-top item-img"
         style={{ borderRadius: "20px" }}
       />
