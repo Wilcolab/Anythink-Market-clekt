@@ -38,7 +38,7 @@ const ItemPreview = (props) => {
       <img
         alt="item"
         src={item.image}
-        onError={({ this }) => {
+        onError={({ image }) => {
           this.onerror = null; // prevents looping
           this.src="/workspaces/Anythink-Market-clekt/frontend/src/components/ItemPreview.js"
         }} //added for comment
