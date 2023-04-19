@@ -38,9 +38,9 @@ const ItemPreview = (props) => {
       <img
         alt="item"
         src={item.image}
-        onError={({ image }) => {
-          image.onerror = null; // prevents looping
-          image.src="/workspaces/Anythink-Market-clekt/frontend/src/components/ItemPreview.js"
+        onError={({ this }) => {
+          this.onerror = null; // prevents looping
+          this.src="/workspaces/Anythink-Market-clekt/frontend/src/components/ItemPreview.js"
         }} //added for comment
         className="card-img-top item-img"
         style={{ borderRadius: "20px" }}
