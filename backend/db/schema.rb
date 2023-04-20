@@ -52,7 +52,7 @@ ActiveRecord::Schema.define(version: 2021_04_12_061614) do
     t.string "title"
     t.string "slug"
     t.string "description"
-    t.string "image"
+    t.string "image", default: "/workspaces/Anythink-Market-clekt/frontend/public/placeholder.png"
     t.integer "favorites_count"
     t.integer "user_id"
     t.datetime "created_at", null: false
